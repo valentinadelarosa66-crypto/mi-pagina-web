@@ -1,34 +1,53 @@
-// Paso 1: Declaración de funciones matemáticas
-function sumar(a, b) { return a + b; }
-function restar(a, b) { return a - b; }
-function multiplicar(a, b) { return a * b; }
-function dividir(a, b) {
-  if (b === 0) return "Error: División por cero";
-  return a / b;
+
+function playBeep() {
+  document.getElementById("beep").play();
 }
 
-// Paso 2: Función principal
-function realizarOperacion(num1, num2, operacion) {
-  if (operacion === "suma") {
-    return sumar(num1, num2);
-  } else if (operacion === "resta") {
-    return restar(num1, num2);
-  } else if (operacion === "multiplicacion") {
-    return multiplicar(num1, num2);
-  } else if (operacion === "division") {
-    return dividir(num1, num2);
+
+function getValues() {
+  let n1 = parseFloat(document.getElementById("num1").value);
+  let n2 = parseFloat(document.getElementById("num2").value);
+  return { n1, n2 };
+}
+
+
+function sumar() {
+  let { n1, n2 } = getValues();
+  let resultado = n1 + n2;
+  mostrarResultado(resultado);
+}
+
+function restar() {
+  let { n1, n2 } = getValues();
+  let resultado = n1 - n2;
+  mostrarResultado(resultado);
+}
+
+function multiplicar() {
+  let { n1, n2 } = getValues();
+  let resultado = n1 * n2;
+  mostrarResultado(resultado);
+}
+
+function dividir() {
+  let { n1, n2 } = getValues();
+  if (n2 === 0) {
+    mostrarResultado("Error: División por cero");
   } else {
-    return "Operación no válida";
+    let resultado = n1 / n2;
+    mostrarResultado(resultado);
   }
 }
 
-// Paso 3: Función que se ejecuta al presionar el botón
-function ejecutarCalculadora() {
-  let n1 = parseFloat(document.getElementById("num1").value);
-  let n2 = parseFloat(document.getElementById("num2").value);
-  let op = document.getElementById("operacion").value;
 
-  let resultado = realizarOperacion(n1, n2, op);
-  document.getElementById("resultado").innerText = 
-    `El resultado de la ${op} es: ${resultado}`;
+function limpiar() {
+  document.getElementById("num1").value = "";
+  document.getElementById("num2").value = "";
+  document.getElementById("resultado").innerText = "Resultado:";
+}
+
+
+function mostrarResultado(valor) {
+  document.getElementById("resultado").innerText = "Resultado: " + valor;
+  playBeep();
 }
